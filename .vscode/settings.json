@@ -1,0 +1,23 @@
+{
+  "editor.codeActionsOnSave": {
+    // Jab bhi file save karein, ESLint automatically saare issues fix karega
+    "source.fixAll.eslint": "always",
+
+    // Imports ko automatically organize (clean & sort) karega on save
+    "source.organizeImports": "always"
+  },
+
+  // File save karte hi auto formatting ho jaayegi (chahe Prettier ho ya koi aur formatter)
+  "editor.formatOnSave": true,
+
+  // Prettier ko default formatter banaya hai (sab kuch usi style me format hoga)
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Word wrapping on rakha hai — taaki text next line me aa jaaye scroll ki jagah
+  "editor.wordWrap": "on",
+
+  "markdownlint.config": {
+    // MD041 rule ko disable kiya hai — ye usually markdown files ke title check karta hai
+    "MD041": false
+  }
+}

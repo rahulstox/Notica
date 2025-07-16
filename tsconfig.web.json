@@ -1,0 +1,53 @@
+{
+  // Ye Electron toolkit wali default config le raha hai (base config samajh le)
+  "extends": "@electron-toolkit/tsconfig/tsconfig.web.json",
+
+  "include": [
+    // env wali file type definitions ke liye hoti hai
+    "src/renderer/src/env.d.ts",
+
+    // ye sare renderer ke source files ko cover karta hai
+    "src/renderer/src/**/*",
+
+    // React components (.tsx) bhi include ho rahe yahan
+    "src/renderer/src/**/*.tsx",
+
+    // preload scripts ke types
+    "src/preload/*.d.ts",
+
+    // shared code — jo frontend aur backend dono use karein
+    "src/shared/**/*"
+  ],
+
+  "compilerOptions": {
+    // agar project ko part-banani ho kisi bade setup ka (jaise monorepo), to ye chahiye hota hai
+    "composite": true,
+
+    // React JSX ko samajhne ke liye ye setting
+    "jsx": "react-jsx",
+
+    // unused variables pe error nahi dega (kabhi-kabhi kaam aata)
+    "noUnusedLocals": false,
+
+    // base path set kiya project root pe (import paths short karne ke liye)
+    "baseUrl": ".",
+
+    // import shortcuts bana diye taaki long path na likhne padhein
+    "paths": {
+      // @renderer/... bole to src/renderer/src/... samajhna
+      "@renderer/*": [
+        "src/renderer/src/*"
+      ],
+
+      // @shared/... bole to src/shared/... ka shortcut
+      "@shared/*": [
+        "src/shared/*"
+      ],
+
+      // @/... bhi same renderer ke liye fallback shortcut
+      "@/*": [
+        "src/renderer/src/*"
+      ]
+    }
+  }
+}

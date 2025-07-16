@@ -1,0 +1,44 @@
+{
+  // Yeh base config Electron ke node-side setup ke liye hai (main process ke liye best settings)
+  "extends": "@electron-toolkit/tsconfig/tsconfig.node.json",
+
+  "include": [
+    // Electron Vite ka config file compiler ko dikhana zaroori hai
+    "electron.vite.config.*",
+
+    // Main process ke saare files yahan aa rahe hain
+    "src/main/**/*",
+
+    // Preload scripts — jo renderer aur main ke beech bridge banate hain
+    "src/preload/*",
+
+    // Shared code — jo multiple jagah use hota hai (jaise utils, constants, etc.)
+    "src/shared/**/*"
+  ],
+
+  "compilerOptions": {
+    // Composite ka matlab hai ye config kisi bade setup (multi-package) me kaam karega
+    "composite": true,
+
+    // Electron-Vite ke node-specific types automatically mil jaayenge isse
+    "types": [
+      "electron-vite/node"
+    ],
+
+    // Ye base path set karta hai taaki import statements clean aur short likh sakein
+    "baseUrl": ".",
+
+    // Path aliases — shortcuts banaye imports ke liye
+    "paths": {
+      // @ ka matlab hoga src/main — directly likh sakte hain @/mainFile.ts
+      "@/*": [
+        "src/main/*"
+      ],
+
+      // @shared se shared folder access ho jaayega — neat and clean
+      "@shared/*": [
+        "src/shared/*"
+      ]
+    }
+  }
+}
