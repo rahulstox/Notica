@@ -8,7 +8,6 @@ module.exports = {
   theme: {
     extend: {} // Apna custom theme ya colors future me yahan add kar sakte ho
   },
-
   // Tailwind plugins — yahan humne sirf Typography plugin use kiya hai
   plugins: [require('@tailwindcss/typography')] // ✅ prose classes jese ki markdown styling ke liye kaam aata hai
 }
