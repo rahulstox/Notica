@@ -1,20 +1,23 @@
-@tailwind base;        /* Tailwind ka base CSS include kar rahe hain */
-@tailwind components;  /* Components wali utility classes include ho rahi hain */
-@tailwind utilities;   /* Saari utility classes load ho jaengi yahan se */
+/* Tailwind CSS directives removed for plain CSS compatibility */
+/* Tailwind ka base CSS include kar rahe hain */
+/* Components wali utility classes include ho rahi hain */
+/* Saari utility classes load ho jaengi yahan se */
 
 @layer base {
   #root {
-    @apply h-full;  /* Root div ko full height de rahe hain */
+    height: 100%;  /* Root div ko full height de rahe hain */
   }
 
   html,
   body {
-    @apply h-full;                     /* Full viewport height */
-    @apply select-none;               /* Text select disable kiya */
-    @apply bg-transparent;
+    height: 100%;                     /* Full viewport height */
+    user-select: none;                /* Text select disable kiya */
+    background-color: transparent;
     /* Background color set to dark slate */
-    @apply font-mono antialiased text-white; /* Monospace font, smooth edges, white text */
-    @apply overflow-hidden;           /* Scroll disable kiya by default */
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* Monospace font */
+    -webkit-font-smoothing: antialiased; /* Smooth edges */
+    color: #fff;                      /* White text */
+    overflow: hidden;                 /* Scroll disable kiya by default */
   }
 
   header {
@@ -27,14 +30,15 @@
 
   /* Scrollbar styling (only works in webkit browsers like Chromium) */
   ::-webkit-scrollbar {
-    @apply w-2;                       /* Slim scrollbar */
+    width: 0.5rem;                    /* Slim scrollbar (matches Tailwind's w-2) */
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-[#555] rounded-md;      /* Dark gray thumb with rounded corners */
+    background-color: #555;           /* Dark gray thumb */
+    border-radius: 0.375rem;          /* Rounded corners (matches Tailwind's md radius) */
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-transparent;            /* Transparent background for track */
+    background-color: transparent;    /* Transparent background for track */
   }
 }

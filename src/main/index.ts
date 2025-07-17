@@ -3,7 +3,7 @@ import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 
-import { createNote, deleteNote, getNotes, readNote, writeNote } from '@/lib'
+import { createNote, deleteNote, getNotes, readNote, writeNote } from '@/lib/index'
 import { CreateNote, DeleteNote, GetNotes, ReadNote, WriteNote } from '@shared/types'
 
 function createWindow(): void {
