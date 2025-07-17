@@ -1,0 +1,40 @@
+@tailwind base;        /* Tailwind ka base CSS include kar rahe hain */
+@tailwind components;  /* Components wali utility classes include ho rahi hain */
+@tailwind utilities;   /* Saari utility classes load ho jaengi yahan se */
+
+@layer base {
+  #root {
+    @apply h-full;  /* Root div ko full height de rahe hain */
+  }
+
+  html,
+  body {
+    @apply h-full;                     /* Full viewport height */
+    @apply select-none;               /* Text select disable kiya */
+    @apply bg-transparent;
+    /* Background color set to dark slate */
+    @apply font-mono antialiased text-white; /* Monospace font, smooth edges, white text */
+    @apply overflow-hidden;           /* Scroll disable kiya by default */
+  }
+
+  header {
+    -webkit-app-region: drag;         /* Header area draggable banaya (Electron window move) */
+  }
+
+  button {
+    -webkit-app-region: no-drag;      /* Buttons non-draggable banaye (taaki click ho sake) */
+  }
+
+  /* Scrollbar styling (only works in webkit browsers like Chromium) */
+  ::-webkit-scrollbar {
+    @apply w-2;                       /* Slim scrollbar */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#555] rounded-md;      /* Dark gray thumb with rounded corners */
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;            /* Transparent background for track */
+  }
+}
