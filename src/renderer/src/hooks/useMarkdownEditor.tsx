@@ -25,7 +25,6 @@ export const useMarkdownEditor = () => {
       trailing: true
     }
   )
-
   const handleBlur = async () => {
     if (!selectedNote) return
 
