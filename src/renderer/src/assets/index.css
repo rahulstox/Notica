@@ -1,44 +1,84 @@
-/* Tailwind CSS directives removed for plain CSS compatibility */
-/* Tailwind ka base CSS include kar rahe hain */
-/* Components wali utility classes include ho rahi hain */
-/* Saari utility classes load ho jaengi yahan se */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* === Premium Upgrades: Base Layer === */
 @layer base {
   #root {
-    height: 100%;  /* Root div ko full height de rahe hain */
+    @apply h-full;
+    @apply backdrop-blur-md bg-black/60;
   }
 
   html,
   body {
-    height: 100%;                     /* Full viewport height */
-    user-select: none;                /* Text select disable kiya */
-    background-color: transparent;
-    /* Background color set to dark slate */
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* Monospace font */
-    -webkit-font-smoothing: antialiased; /* Smooth edges */
-    color: #fff;                      /* White text */
-    overflow: hidden;                 /* Scroll disable kiya by default */
+    @apply h-full;
+    @apply select-none;
+    @apply bg-gradient-to-br from-slate-900 to-indigo-950;
+    @apply font-mono antialiased text-white;
+    @apply overflow-hidden;
+    /* Optional for smooth font on Windows */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background 0.5s;
   }
 
+  /* Glassy card/modal base */
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md shadow-xl rounded-2xl p-6 border border-white/20;
+  }
+
+  /* Premium header area (drag zone) */
   header {
-    -webkit-app-region: drag;         /* Header area draggable banaya (Electron window move) */
+    -webkit-app-region: drag;
+    @apply select-none;
+    @apply px-4 py-2 flex items-center justify-between bg-white/5 backdrop-blur-sm rounded-t-2xl shadow;
   }
 
-  button {
-    -webkit-app-region: no-drag;      /* Buttons non-draggable banaye (taaki click ho sake) */
-  }
-
-  /* Scrollbar styling (only works in webkit browsers like Chromium) */
+  /* Premium scrollbars */
   ::-webkit-scrollbar {
-    width: 0.5rem;                    /* Slim scrollbar (matches Tailwind's w-2) */
+    @apply w-2;
   }
-
   ::-webkit-scrollbar-thumb {
-    background-color: #555;           /* Dark gray thumb */
-    border-radius: 0.375rem;          /* Rounded corners (matches Tailwind's md radius) */
+    @apply bg-gradient-to-b from-indigo-600 to-indigo-400 rounded-lg;
+    transition: background 0.3s;
   }
-
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-indigo-700;
+  }
   ::-webkit-scrollbar-track {
-    background-color: transparent;    /* Transparent background for track */
+    @apply bg-transparent;
+  }
+}
+
+/* === Enhanced Button === */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-xl font-medium bg-indigo-600 hover:bg-indigo-700
+    shadow-lg transition-all duration-200 text-white flex items-center gap-2 select-none;
+  }
+  .btn:active {
+    @apply scale-95;
+  }
+}
+
+/* === Card and Modal Components === */
+@layer components {
+  .note-card {
+    @apply glass-card transition-shadow hover:shadow-2xl hover:bg-white/20 cursor-pointer;
+  }
+  .modal {
+    @apply glass-card max-w-lg mx-auto my-8;
+  }
+}
+
+/* === Dark mode (expandable for theming) === */
+@layer base {
+  @media (prefers-color-scheme: dark) {
+    html {
+      @apply bg-gradient-to-br from-slate-900 to-indigo-950 text-white;
+    }
+    .glass-card, .modal, .note-card {
+      @apply bg-white/10 border-white/20;
+    }
   }
 }
