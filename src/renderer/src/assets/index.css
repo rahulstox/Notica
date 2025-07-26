@@ -2,83 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* === Premium Upgrades: Base Layer === */
 @layer base {
   #root {
     @apply h-full;
-    @apply backdrop-blur-md bg-black/60;
   }
 
   html,
   body {
     @apply h-full;
+
     @apply select-none;
-    @apply bg-gradient-to-br from-slate-900 to-indigo-950;
+
+    @apply bg-transparent;
+
     @apply font-mono antialiased text-white;
+
     @apply overflow-hidden;
-    /* Optional for smooth font on Windows */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    transition: background 0.5s;
   }
 
-  /* Glassy card/modal base */
-  .glass-card {
-    @apply bg-white/10 backdrop-blur-md shadow-xl rounded-2xl p-6 border border-white/20;
-  }
-
-  /* Premium header area (drag zone) */
   header {
     -webkit-app-region: drag;
-    @apply select-none;
-    @apply px-4 py-2 flex items-center justify-between bg-white/5 backdrop-blur-sm rounded-t-2xl shadow;
   }
 
-  /* Premium scrollbars */
+  button {
+    -webkit-app-region: no-drag;
+  }
+
   ::-webkit-scrollbar {
     @apply w-2;
   }
+
   ::-webkit-scrollbar-thumb {
-    @apply bg-gradient-to-b from-indigo-600 to-indigo-400 rounded-lg;
-    transition: background 0.3s;
+    @apply bg-[#555] rounded-md;
   }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-indigo-700;
-  }
+
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
-  }
-}
-
-/* === Enhanced Button === */
-@layer components {
-  .btn {
-    @apply px-4 py-2 rounded-xl font-medium bg-indigo-600 hover:bg-indigo-700
-    shadow-lg transition-all duration-200 text-white flex items-center gap-2 select-none;
-  }
-  .btn:active {
-    @apply scale-95;
-  }
-}
-
-/* === Card and Modal Components === */
-@layer components {
-  .note-card {
-    @apply glass-card transition-shadow hover:shadow-2xl hover:bg-white/20 cursor-pointer;
-  }
-  .modal {
-    @apply glass-card max-w-lg mx-auto my-8;
-  }
-}
-
-/* === Dark mode (expandable for theming) === */
-@layer base {
-  @media (prefers-color-scheme: dark) {
-    html {
-      @apply bg-gradient-to-br from-slate-900 to-indigo-950 text-white;
-    }
-    .glass-card, .modal, .note-card {
-      @apply bg-white/10 border-white/20;
-    }
   }
 }

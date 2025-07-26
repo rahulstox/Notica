@@ -1,13 +1,8 @@
-import typography from '@tailwindcss/typography'
-
-export default {
+/** @type {import('tailwindcss').Config} */
+module.exports = {
   content: ['./src/renderer/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {
-      fontFamily: {
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace']
-      }
-    }
+    extend: {}
   },
-  plugins: [typography]
+  plugins: [require('@tailwindcss/typography')]
 }

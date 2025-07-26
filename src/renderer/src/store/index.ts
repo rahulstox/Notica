@@ -1,23 +1,20 @@
-import { NoteContent, NoteInfo } from '@shared/models' // Types for note info and content
+import { NoteContent, NoteInfo } from '@shared/models'
 import { atom } from 'jotai'
 import { unwrap } from 'jotai/utils'
 
-// ✅ Load and sort notes from disk (most recently edited first)
 const loadNotes = async () => {
   const notes = await window.context.getNotes()
+
+  // sort them by most recently edited
   return notes.sort((a, b) => b.lastEditTime - a.lastEditTime)
 }
 
-// ✅ Atom for loading notes (can be promise initially)
 const notesAtomAsync = atom<NoteInfo[] | Promise<NoteInfo[]>>(loadNotes())
 
-// ✅ Convert async atom to sync using unwrap (once loaded)
 export const notesAtom = unwrap(notesAtomAsync, (prev) => prev)
 
-// ✅ Index of selected note (null if none selected)
 export const selectedNoteIndexAtom = atom<number | null>(null)
 
-// ✅ Atom to get selected note with content
 const selectedNoteAtomAsync = atom(async (get) => {
   const notes = get(notesAtom)
   const selectedNoteIndex = get(selectedNoteIndexAtom)
@@ -25,7 +22,9 @@ const selectedNoteAtomAsync = atom(async (get) => {
   if (selectedNoteIndex == null || !notes) return null
 
   const selectedNote = notes[selectedNoteIndex]
-  const noteContent = await window.context.readNote(selectedNote.title)
+
+  // ✅ FIX: Use the full path to read the note's content
+  const noteContent = await window.context.readNote(selectedNote.fullPath)
 
   return {
     ...selectedNote,
@@ -33,69 +32,85 @@ const selectedNoteAtomAsync = atom(async (get) => {
   }
 })
 
-// ✅ Make selected note available synchronously (with fallback if null)
 export const selectedNoteAtom = unwrap(
   selectedNoteAtomAsync,
   (prev) =>
     prev ?? {
       title: '',
       content: '',
-      lastEditTime: Date.now()
+      lastEditTime: Date.now(),
+      fullPath: '' // ✅ FIX: Add fullPath to the default object
     }
 )
 
-// ✅ Save currently selected note
 export const saveNoteAtom = atom(null, async (get, set, newContent: NoteContent) => {
   const notes = get(notesAtom)
   const selectedNote = get(selectedNoteAtom)
 
   if (!selectedNote || !notes) return
 
-  // Save content to disk
-  await window.context.writeNote(selectedNote.title, newContent)
+  // ✅ FIX: Use the full path to write the note to disk
+  await window.context.writeNote(selectedNote.fullPath, newContent)
 
-  // Update lastEditTime in notesAtom
+  // update the saved note's last edit time
   set(
     notesAtom,
-    notes.map((note) =>
-      note.title === selectedNote.title ? { ...note, lastEditTime: Date.now() } : note
-    )
+    notes.map((note) => {
+      // ✅ FIX: Use the full path to find the note to update
+      if (note.fullPath === selectedNote.fullPath) {
+        return {
+          ...note,
+          lastEditTime: Date.now()
+        }
+      }
+
+      return note
+    })
   )
 })
 
-// ✅ Create a new note and select it
 export const createEmptyNoteAtom = atom(null, async (get, set) => {
   const notes = get(notesAtom)
+
   if (!notes) return
 
-  const title = await window.context.createNote()
-  if (!title) return
+  // ✅ FIX: The backend now returns a full file path
+  const filePath = await window.context.createNote()
 
+  if (!filePath) return
+
+  // ✅ FIX: Create a proper NoteInfo object from the new file path
   const newNote: NoteInfo = {
-    title,
+    // A simple way to get the title from the path
+    title: filePath.split(/[/\\]/).pop()?.replace(/\.md$/, '') || 'Untitled',
+    fullPath: filePath,
     lastEditTime: Date.now()
   }
 
-  // Add new note to top of list (prevent duplicate titles)
-  set(notesAtom, [newNote, ...notes.filter((note) => note.title !== newNote.title)])
-  set(selectedNoteIndexAtom, 0) // Select new note
+  // ✅ FIX: Add the new note and use fullPath to ensure no duplicates
+  set(notesAtom, [newNote, ...notes.filter((note) => note.fullPath !== newNote.fullPath)])
+
+  // ✅ FIX: Select the newly created note
+  set(selectedNoteIndexAtom, 0)
 })
 
-// ✅ Delete currently selected note
 export const deleteNoteAtom = atom(null, async (get, set) => {
   const notes = get(notesAtom)
   const selectedNote = get(selectedNoteAtom)
 
   if (!selectedNote || !notes) return
 
-  const isDeleted = await window.context.deleteNote(selectedNote.title)
+  // ✅ FIX: Use the full path to delete the note
+  const isDeleted = await window.context.deleteNote(selectedNote.fullPath)
+
   if (!isDeleted) return
 
-  // Remove deleted note from list
+  // ✅ FIX: Use the full path to filter out the deleted note
   set(
     notesAtom,
-    notes.filter((note) => note.title !== selectedNote.title)
+    notes.filter((note) => note.fullPath !== selectedNote.fullPath)
   )
 
-  set(selectedNoteIndexAtom, null) // Deselect note
+  // de-select any note
+  set(selectedNoteIndexAtom, null)
 })

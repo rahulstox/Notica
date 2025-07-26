@@ -24,7 +24,14 @@ try {
     readNote: (...args: Parameters<ReadNote>) => ipcRenderer.invoke('readNote', ...args),
     writeNote: (...args: Parameters<WriteNote>) => ipcRenderer.invoke('writeNote', ...args),
     createNote: (...args: Parameters<CreateNote>) => ipcRenderer.invoke('createNote', ...args),
-    deleteNote: (...args: Parameters<DeleteNote>) => ipcRenderer.invoke('deleteNote', ...args)
+    deleteNote: (...args: Parameters<DeleteNote>) => ipcRenderer.invoke('deleteNote', ...args),
+
+    // ✅ SAHI FIX: Ek function return karein jo listener ko saaf kare (cleanup).
+    // Yeh React ke useEffect error ko solve karta hai.
+    onSaveOnClose: (callback: () => void) => {
+      ipcRenderer.on('save-on-close', callback)
+      return () => ipcRenderer.removeListener('save-on-close', callback)
+    }
   })
 } catch (error) {
   // Agar kuch bhi galat hota hai to console me dikha denge for debugging

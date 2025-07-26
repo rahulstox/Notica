@@ -1,9 +1,8 @@
 import { DeleteNoteButton, NewNoteButton } from '@/components'
-import { ComponentProps } from 'react'
 
-export const ActionButtonsRow = ({ ...props }: ComponentProps<'div'>) => {
+export const ActionButtonsRow = () => {
   return (
-    <div {...props}>
+    <div className="flex justify-between mt-1">
       <NewNoteButton />
       <DeleteNoteButton />
     </div>

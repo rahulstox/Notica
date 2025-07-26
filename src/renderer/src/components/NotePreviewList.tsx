@@ -1,21 +1,19 @@
-import { NotePreview } from '@/components' // Single note preview item
-import { useNotesList } from '@/hooks/useNotesList' // Custom hook for notes logic
-import { isEmpty } from 'lodash' // Utility to check if notes array is empty
+import { NotePreview } from '@/components'
+import { useNotesList } from '@/hooks/useNotesList'
+import { isEmpty } from 'lodash'
 import { ComponentProps } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 export type NotePreviewListProps = ComponentProps<'ul'> & {
-  onSelect?: () => void // Optional callback when a note is selected
+  onSelect?: () => void
 }
 
-// ✅ Note list component
 export const NotePreviewList = ({ onSelect, className, ...props }: NotePreviewListProps) => {
-  const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({ onSelect }) // Notes & handlers from custom hook
+  const { notes, selectedNoteIndex, handleNoteSelect } = useNotesList({ onSelect })
 
-  if (!notes) return null // Agar notes null hai, to kuch render mat karo
+  if (!notes) return null
 
   if (isEmpty(notes)) {
-    // Agar notes empty hai, to message dikhao
     return (
       <ul className={twMerge('text-center pt-4', className)} {...props}>
         <span>No Notes Yet!</span>
@@ -25,13 +23,12 @@ export const NotePreviewList = ({ onSelect, className, ...props }: NotePreviewLi
 
   return (
     <ul className={className} {...props}>
-      {/* Map each note to a NotePreview item */}
       {notes.map((note, index) => (
         <NotePreview
-          key={note.title + note.lastEditTime} // Unique key
-          isActive={selectedNoteIndex === index} // Highlight if selected
-          onClick={handleNoteSelect(index)} // Select handler
-          {...note} // Pass note data as props
+          key={note.title + note.lastEditTime}
+          isActive={selectedNoteIndex === index}
+          onClick={handleNoteSelect(index)}
+          {...note}
         />
       ))}
     </ul>

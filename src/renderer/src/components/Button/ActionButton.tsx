@@ -1,18 +1,24 @@
-import { ComponentProps } from 'react' // HTML component props le raha hai
-import { twMerge } from 'tailwind-merge' // Tailwind classes merge karta hai (conflict resolve)
+import { ComponentProps, forwardRef } from 'react'
+import { twMerge } from 'tailwind-merge'
 
-export type ActionButtonProps = ComponentProps<'button'> // Button ke liye prop type bana diya
+// Define and export the props type so other components can use it.
+export type ActionButtonProps = ComponentProps<'button'>
 
-export const ActionButton = ({ className, children, ...props }: ActionButtonProps) => {
-  return (
-    <button
-      className={twMerge(
-        'px-2 py-1 rounded-md border border-zinc-400/50 hover:bg-zinc-600/50 transition-colors duration-100',
-        className // Custom classes allow karega
-      )}
-      {...props} // Baaki sab props pass kar diye (onClick, disabled, etc.)
-    >
-      {children} {/* Button ke andar ka content */}
-    </button>
-  )
-}
+export const ActionButton = forwardRef<HTMLButtonElement, ActionButtonProps>(
+  ({ className, children, ...props }, ref) => {
+    return (
+      <button
+        ref={ref}
+        className={twMerge(
+          'px-2 py-1 rounded-md border border-zinc-400/50 hover:bg-zinc-600/50 transition-colors',
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </button>
+    )
+  }
+)
+
+ActionButton.displayName = 'ActionButton'
