@@ -1,54 +1,90 @@
-## Welcome to NoteMark 👋🏻
+# Hey there, welcome to NoteMark! 👋🏻
 
-NoteMark is a simple **note-taking app** that uses **Markdown** syntax to format your notes.
+This is your first note, just a little guide to help you get the hang of things. Feel free to play around with it, or just delete it and start your own thing! NoteMark uses a super simple formatting style called **Markdown**.
 
-You can create your first note by clicking on the top-left icon on the sidebar, or delete one by clicking on top right icon.
+It's really easy to get started:
+* **To make a new note**, just click the little "pen" icon 📝 up in the top-left.
+* **To get rid of a note**, click the "trash" icon 🗑️ in the top-right. Simple as that!
 
-Following there's a quick overview of the currently supported Markdown syntax.
+---
 
-## Text formatting
+### Making Your Notes Look Good!
 
-This is a **bold** text.
-This is an _italic_ text.
+Here’s how you can add some style to your text. It’s a piece of cake!
 
-## Headings
+#### **Bold Text**
+* **Type this:** `**This is bold text**`
+* **You'll get this:** **This is bold text**
+* **Shortcut:** Just highlight your text and hit `Ctrl + B`.
 
-Here are all the heading formats currently supported by **_NoteMark_**:
+#### **Italic Text**
+* **Type this:** `*This is italic text*`
+* **You'll get this:** *This is italic text*
+* **Shortcut:** Highlight what you want and press `Ctrl + I`.
 
-# Heading 1
+#### **Strikethrough**
+* **Type this:** `~~Cross this out~~`
+* **You'll get this:** ~~Cross this out~~
+* **Shortcut:** You guessed it! Select the text and press `Ctrl + Shift + X`.
 
-## Heading 2
+---
 
-### Heading 3
+### **Titles and Subtitles**
+Just use the `#` key to make your headings. The more `##` you add, the smaller the title gets.
 
-#### Heading 4
+* **For a big title:** `# Heading 1`
+* **For a smaller one:** `## Heading 2`
 
-### Bulleted list
+---
 
-For example, you can add a list of bullet points:
+### **Making Lists**
 
-- Bullet point 1
-- Bullet point 2
-- Bullet point 3
+#### **Bulleted Lists**
+Just start a line with a dash `-` and a space.
 
-### Numbered list
+* **Type this:**
+    ```
+    - First point
+    - Second point
+    ```
+* **You'll get this:**
+    * First point
+    * Second point
+* **Cool tip:** Once you make a bullet point, just hit `Enter` and it'll make another one for you!
 
-Here we have a numbered list:
+#### **Numbered Lists**
+This one's easy, just use numbers!
 
-1. Numbered list item 1
-2. Numbered list item 2
-3. Numbered list item 3
+* **Type this:**
+    ```
+    1. First step
+    2. Second step
+    ```
+* **You'll get this:**
+    1.  First step
+    2.  Second step
 
-### Blockquote
+---
 
-> This is a blockquote. You can use it to emphasize some text or to cite someone.
+### A Few More Tricks
+#### **Quotes**
+To make text stand out, just put a `>` at the start of the line.
 
-### Code blocks
+* **Type this:** `> This is an important quote.`
+* **You'll get this:**
+    > This is an important quote.
 
-Only `inline code` is currently supported!
+#### **Code Snippets**
+For showing a little bit of code, wrap it in these single backticks: \` \`.
 
-Code block snippets using the following syntax _\`\`\`js\`\`\`_ are **_not supported_** yet!
+* **Type this:** `Use `const` to declare a variable.`
+* **You'll get this:** Use `const` to declare a variable.
 
-### Links
+---
 
-Links are **_not supported_** yet!
+### What's Coming Soon?
+We're always tinkering to make NoteMark even better. Here's a sneak peek at what's on the way:
+* **Full Code Blocks:** For showing off bigger chunks of code with pretty colors.
+* **Clickable Links:** So you can easily link to websites in your notes.
+
+Have fun with your notes!

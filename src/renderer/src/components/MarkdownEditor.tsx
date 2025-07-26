@@ -15,7 +15,8 @@ export const MarkdownEditor = () => {
   return (
     <MDXEditor
       ref={editorRef}
-      key={selectedNote.title}
+      // ✅ FIX: Use the note's fullPath as the key for a reliable, unique identifier.
+      key={selectedNote.fullPath}
       markdown={selectedNote.content}
       onChange={handleAutoSaving}
       onBlur={handleBlur}
